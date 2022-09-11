@@ -50,5 +50,3 @@ pub mod sol_social {
     }
 }
 
-#[derive(Accounts)]
-pub struct Initialize {}

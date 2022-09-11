@@ -31,8 +31,8 @@ pub struct NewUser<'info> {
         init, 
         payer = user, 
         space = size_of::<User>(), 
-        // seeds = [b"new_user", user.key().as_ref()], 
-        // bump
+        seeds = [b"new_user".as_ref(), user.key().as_ref()], 
+        bump
     )]
     pub user_account: Box<Account<'info, User>>,
     
