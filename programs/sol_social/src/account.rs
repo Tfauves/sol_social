@@ -14,11 +14,12 @@ pub struct AddBookmarks<'info> {
 
 #[derive(Accounts)]
 pub struct UpdateUsername<'info> {
-   
-    #[account(mut, has_one = user)]
+    
+    pub user: Signer<'info>,
+    
+    #[account(mut, seeds = [b"new_user", user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>,
    
-    pub user: Signer<'info>,
 }
 
 #[derive(Accounts)]

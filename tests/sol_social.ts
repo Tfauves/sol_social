@@ -1,8 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import { Program } from "@project-serum/anchor";
-import { publicKey } from "@project-serum/anchor/dist/cjs/utils";
 import { utf8 } from "@project-serum/anchor/dist/cjs/utils/bytes";
-import { BN } from "bn.js";
 import { SolSocial } from "../target/types/sol_social";
 
 describe("sol_social", () => {
@@ -14,7 +12,27 @@ describe("sol_social", () => {
   const nameUpdateAccount = anchor.web3.Keypair.generate();
 
 
-  it("creates new user",async () => {
+  // it("creates new user",async () => {
+  //   const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
+  //   const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
+  //     utf8.encode('new_user'),
+  //     publicKey.toBuffer(),
+  //   ],
+  //   program.programId
+  //   );
+    
+  //   console.log("newUserPDA", newUserPDA);
+  //   await program.methods.newUser("testName").accounts({
+  //     userAccount: newUserPDA,
+  //     systemProgram: anchor.web3.SystemProgram.programId,
+  //   })
+  //   .rpc();
+  //   const newUserAccount = await program.account.user.fetch(newUserPDA);
+  //   console.log(newUserAccount);
+   
+  // })
+  
+  it ("updates username", async () => {
     const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
     const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
       utf8.encode('new_user'),
@@ -22,15 +40,16 @@ describe("sol_social", () => {
     ],
     program.programId
     );
-    
+
     console.log("newUserPDA", newUserPDA);
-    await program.methods.newUser("testName").accounts({
-      userAccount: newUserPDA,
-      systemProgram: anchor.web3.SystemProgram.programId,
+    await program.methods.updateUsername("&mut NewUserName").accounts({
+      userAccount: newUserPDA
+      
     })
     .rpc();
     const newUserAccount = await program.account.user.fetch(newUserPDA);
     console.log(newUserAccount);
+
   })
 
   // it("Creating a new account for user", async () => {
@@ -63,20 +82,5 @@ describe("sol_social", () => {
   //   console.log("Your transaction signature", tx);
   // });
 
-  // it("updates username", async () => {
-  //  const ix = await program.methods.updateUsername("&mut username")
-  //  const userAccountAddress = (await ix.pubkeys()).userAccount
-  // //  console.log(userAccountAddress.toString());
-
-  //  const tx = await ix.rpc()
-  //  console.log("Your transaction signature", tx);
-
-  //  let userDetails = await program.account.user.fetch(userAccountAddress);
-  //  console.log(`Name: ${userDetails.username}` )
-
-  //   const newPostAccount0 = await program.account.user.fetch(newUserAccount.publicKey);
-  //   console.log(newPostAccount0);
-
-  // });
 
 });
