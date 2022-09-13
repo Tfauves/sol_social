@@ -2,50 +2,15 @@ use anchor_lang::prelude::*;
 use std::mem::size_of;
 
 
-#[derive(Accounts)]
-pub struct AddBookmarks<'info> {
-    
-    #[account(mut, has_one = user)]
-    pub user_account: Box<Account<'info, User>>,
-    
-    pub user: Signer<'info>,
-}
-
 
 #[derive(Accounts)]
-pub struct UpdateUsername<'info> {
+pub struct UpdateStatus<'info> {
     
     pub user: Signer<'info>,
-    
-    #[account(mut, seeds = [b"new_user", user.key().as_ref()], bump)]
-    pub user_account: Box<Account<'info, User>>,
-   
-}
 
-#[derive(Accounts)]
-pub struct NewUser<'info> {
-    
-    #[account(mut)]
-    pub user: Signer<'info>,
-    
-    #[account(
-        init, 
-        payer = user, 
-        space = size_of::<User>(), 
-        seeds = [b"new_user".as_ref(), user.key().as_ref()], 
-        bump
-    )]
-    pub user_account: Box<Account<'info, User>>,
-    
-    pub system_program: Program<'info, System>,
-}
+    #[account(mut, seeds = [b"new_user3".as_ref(), user.key().as_ref()], bump)]
+    pub user_account: Box<Account<'info, User>>
 
-#[account]
-pub struct User {
-    pub user: Pubkey,
-    pub username: String,
-    pub timestamp: i64,
-    pub bookmarks: Vec<Pubkey>,
 }
 
 #[derive(Accounts)]
@@ -68,10 +33,52 @@ pub struct Post {
 
 }
 
-// impl User {
-//     const LEN: usize = DISCRIMINATOR_LENGTH
-//         + PUBLIC_KEY_LENGTH // Author.
-//         + TIMESTAMP_LENGTH // Timestamp.
-//         + STRING_LENGTH_PREFIX + MAX_TOPIC_LENGTH // Topic.
-//         + STRING_LENGTH_PREFIX + MAX_CONTENT_LENGTH; // Content.
-// }
+#[derive(Accounts)]
+pub struct AddBookmarks<'info> {
+    
+    pub user: Signer<'info>,
+    
+    #[account(mut, seeds = [b"new_user3", user.key().as_ref()], bump)]
+    pub user_account: Box<Account<'info, User>>,
+
+}
+
+
+#[derive(Accounts)]
+pub struct UpdateUsername<'info> {
+    
+    pub user: Signer<'info>,
+    
+    #[account(mut, seeds = [b"new_user3".as_ref(), user.key().as_ref()], bump)]
+    pub user_account: Box<Account<'info, User>>,
+   
+}
+
+#[derive(Accounts)]
+pub struct NewUser<'info> {
+    
+    #[account(mut)]
+    pub user: Signer<'info>,
+    
+    #[account(
+        init, 
+        payer = user, 
+        space = size_of::<User>(), 
+        seeds = [b"new_user3".as_ref(), user.key().as_ref()], 
+        bump
+    )]
+    pub user_account: Box<Account<'info, User>>,
+    
+    pub system_program: Program<'info, System>,
+}
+
+#[account]
+pub struct User {
+    pub user: Pubkey,
+    pub username: String,
+    pub timestamp: i64,
+    pub bookmarks: Vec<String>,
+    pub status: String
+}
+
+
