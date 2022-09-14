@@ -42,16 +42,16 @@ pub mod sol_social {
         Ok(())
     }
 
-    // pub fn add_bookmarks(ctx: Context<AddBookmarks>, bookmark: String) -> Result<()> {
-    //     let user_account = &mut ctx.accounts.user_account;
+    pub fn add_bookmarks(ctx: Context<AddBookmarks>, bookmark: u32) -> Result<()> {
+        let user_account = &mut ctx.accounts.user_account;
 
-    //     if user_account.bookmarks.contains(&bookmark) {
-    //         msg!("bookmark already saved!")
-    //     } else {
-    //         user_account.bookmarks.push(bookmark);
-    //     }
-    //     Ok(())
-    // }
+        if user_account.bookmarks.contains(&bookmark) {
+            msg!("bookmark already saved!")
+        } else {
+            user_account.bookmarks.push(bookmark);
+        }
+        Ok(())
+    }
 
     // pub fn send_post(ctx: Context<SendPost>, content: String, username: String,) -> Result<()> {
     //     let post: &mut Account<Post> = &mut ctx.accounts.post;

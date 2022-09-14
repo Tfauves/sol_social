@@ -9,13 +9,13 @@ describe("sol_social", () => {
 
   const program = anchor.workspace.SolSocial as Program<SolSocial>;
   const postAccount = anchor.web3.Keypair.generate();
-  const nameUpdateAccount = anchor.web3.Keypair.generate();
+  const bookmarkAccount = anchor.web3.Keypair.generate();
 
 
   // it("creates new user",async () => {
   //   const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
   //   const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-  //     utf8.encode('new_user3'),
+  //     utf8.encode('new_user4'),
   //     publicKey.toBuffer(),
   //   ],
   //   program.programId
@@ -35,14 +35,14 @@ describe("sol_social", () => {
   it ("updates username", async () => {
     const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
     const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-      utf8.encode('new_user3'),
+      utf8.encode('new_user4'),
       publicKey.toBuffer(),
     ],
     program.programId
     );
 
     console.log("newUserPDA", newUserPDA);
-    await program.methods.updateUsername("&mut thisNewUserName").accounts({
+    await program.methods.updateUsername("&mut username").accounts({
       userAccount: newUserPDA
       
     })
@@ -55,12 +55,12 @@ describe("sol_social", () => {
   it ("updates status", async () => {
     const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
     const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-      utf8.encode('new_user3'),
+      utf8.encode('new_user4'),
       publicKey.toBuffer(),
     ],
     program.programId
     );
-    await program.methods.updateStatus("hey iam a status update").accounts(
+    await program.methods.updateStatus("hey iam a new status update").accounts(
       {
         userAccount: newUserPDA
       }
@@ -70,26 +70,26 @@ describe("sol_social", () => {
     console.log(newUserAccount)
   })
 
-  // it ("adds to bookmarks", async () => {
-  //   const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
-  //   const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-  //     utf8.encode('new_user2'),
-  //     publicKey.toBuffer(),
-  //   ],
-  //   program.programId
-  //   );
+  it ("adds to bookmarks", async () => {
+    const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
+    const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
+      utf8.encode('new_user4'),
+      publicKey.toBuffer(),
+    ],
+    program.programId
+    );
 
-  //   console.log("newUserPDA", newUserPDA);
-  //   await program.methods.addBookmarks("this bookmark").accounts({
-  //     userAccount: newUserPDA
-  //   })
-  //   .rpc();
+    console.log("newUserPDA", newUserPDA);
+    await program.methods.addBookmarks(42).accounts(
+      {
+      userAccount: newUserPDA
+      }
+    )
+    .rpc();
 
-  //   const newUserAccount = await program.account.user.fetch(newUserPDA)
-  //   console.log(newUserAccount.bookmarks);
-  //   console.log(newUserAccount.timestamp);
-
-  // })
+    const newUserAccount = await program.account.user.fetch(newUserPDA)
+    console.log(newUserAccount);
+  })
 
   // it ("sends a post", async () => {
   //  const tx = await program.methods.sendPost("this is a post", "tfauves").accounts(
