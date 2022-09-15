@@ -15,7 +15,7 @@ describe("sol_social", () => {
   // it("creates new user",async () => {
   //   const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
   //   const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-  //     utf8.encode('new_user4'),
+  //     utf8.encode('new_user5'),
   //     publicKey.toBuffer(),
   //   ],
   //   program.programId
@@ -35,7 +35,7 @@ describe("sol_social", () => {
   it ("updates username", async () => {
     const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
     const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-      utf8.encode('new_user4'),
+      utf8.encode('new_user5'),
       publicKey.toBuffer(),
     ],
     program.programId
@@ -55,7 +55,7 @@ describe("sol_social", () => {
   it ("updates status", async () => {
     const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
     const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-      utf8.encode('new_user4'),
+      utf8.encode('new_user5'),
       publicKey.toBuffer(),
     ],
     program.programId
@@ -73,7 +73,7 @@ describe("sol_social", () => {
   it ("adds to bookmarks", async () => {
     const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
     const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
-      utf8.encode('new_user4'),
+      utf8.encode('new_user5'),
       publicKey.toBuffer(),
     ],
     program.programId
@@ -92,19 +92,37 @@ describe("sol_social", () => {
   })
 
   // it ("sends a post", async () => {
-  //  const tx = await program.methods.sendPost("this is a post", "tfauves").accounts(
-  //   {
-  //     post: postAccount.publicKey,
-  //     author: anchor.getProvider().publicKey
-  //   },
+  //   const publicKey = anchor.AnchorProvider.local().wallet.publicKey;
+  //   const [newUserPDA] = await anchor.web3.PublicKey.findProgramAddress([
+  //     utf8.encode('new_user4'),
+  //     publicKey.toBuffer(),
+  //   ],
+  //   program.programId
+  //   );
+    
+  //   await program.methods.sendPost("this damn dog", "tfauves").accounts(
+  //     {
+  //       author: newUserPDA
+  //     }
   //   )
-  //   .signers([postAccount])
   //   .rpc();
-
-  //   const newPostAccount0 = await program.account.post.fetch(postAccount.publicKey);
-  //   console.log(newPostAccount0);
- 
+  //   const newUserAccount = await program.account.post.fetch(newUserPDA)
+  //   console.log(newUserAccount);
   // })
-  
+
+  it ("sends a post", async () => {
+   const tx = await program.methods.sendPost("this is a post", "tfauves").accounts(
+    {
+      post: postAccount.publicKey,
+      author: anchor.getProvider().publicKey
+    },
+    )
+    .signers([postAccount])
+    .rpc();
+
+    const newPostAccount0 = await program.account.post.fetch(postAccount.publicKey);
+    console.log(newPostAccount0);
+ 
+   })
 
 });

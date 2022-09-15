@@ -53,19 +53,21 @@ pub mod sol_social {
         Ok(())
     }
 
-    // pub fn send_post(ctx: Context<SendPost>, content: String, username: String,) -> Result<()> {
-    //     let post: &mut Account<Post> = &mut ctx.accounts.post;
-    //     let author: &Signer = &ctx.accounts.author;
+    pub fn send_post(ctx: Context<SendPost>, content: String, username: String,) -> Result<()> {
+        let post: &mut Account<Post> = &mut ctx.accounts.post;
+        let clock: Clock = Clock::get().unwrap();
+        let author: &Signer = &ctx.accounts.author;
 
-    //     if content.chars().count() > 280 {
-    //         msg!("content must by less the 280 characters!");
-    //     }
+        if content.chars().count() > 280 {
+            msg!("content must by less the 280 characters!");
+        }
 
-    //     post.author = *author.key;
-    //     post.content = content;
-    //     post.username = username;
+        post.author = *author.key;
+        post.timestamp = clock.unix_timestamp;
+        post.content = content;
+        post.username = username;
 
-    //     Ok(())
-    // }
+        Ok(())
+    }
 }
 

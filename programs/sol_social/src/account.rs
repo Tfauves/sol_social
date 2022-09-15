@@ -2,13 +2,12 @@ use anchor_lang::prelude::*;
 use std::mem::size_of;
 
 
-
 #[derive(Accounts)]
 pub struct UpdateStatus<'info> {
     
     pub user: Signer<'info>,
 
-    #[account(mut, seeds = [b"new_user4".as_ref(), user.key().as_ref()], bump)]
+    #[account(mut, seeds = [b"new_user5".as_ref(), user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>
 
 }
@@ -38,7 +37,7 @@ pub struct AddBookmarks<'info> {
     
     pub user: Signer<'info>,
     
-    #[account(mut, seeds = [b"new_user4".as_ref(), user.key().as_ref()], bump)]
+    #[account(mut, seeds = [b"new_user5".as_ref(), user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>,
 
 }
@@ -49,7 +48,7 @@ pub struct UpdateUsername<'info> {
     
     pub user: Signer<'info>,
     
-    #[account(mut, seeds = [b"new_user4".as_ref(), user.key().as_ref()], bump)]
+    #[account(mut, seeds = [b"new_user5".as_ref(), user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>,
    
 }
@@ -64,7 +63,7 @@ pub struct NewUser<'info> {
         init, 
         payer = user, 
         space = size_of::<User>(), 
-        seeds = [b"new_user4".as_ref(), user.key().as_ref()], 
+        seeds = [b"new_user5".as_ref(), user.key().as_ref()], 
         bump
     )]
     pub user_account: Box<Account<'info, User>>,
