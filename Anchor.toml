@@ -1,5 +1,5 @@
 [features]
-seeds = false
+seeds = true
 skip-lint = false
 [programs.localnet]
 sol_social = "7CuooyeTewXB5v3V22gmkoZFKDBdFmkb68mhozGghcxt"

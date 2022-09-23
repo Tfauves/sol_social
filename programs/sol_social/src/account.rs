@@ -7,7 +7,7 @@ pub struct UpdateStatus<'info> {
     
     pub user: Signer<'info>,
 
-    #[account(mut, seeds = [b"new_user7".as_ref(), user.key().as_ref()], bump)]
+    #[account(mut, seeds = [b"new_user_account".as_ref(), user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>
 
 }
@@ -37,7 +37,7 @@ pub struct AddBookmarks<'info> {
     
     pub user: Signer<'info>,
     
-    #[account(mut, seeds = [b"new_user7".as_ref(), user.key().as_ref()], bump)]
+    #[account(mut, seeds = [b"new_user_account".as_ref(), user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>,
 
 }
@@ -48,7 +48,7 @@ pub struct UpdateUsername<'info> {
     
     pub user: Signer<'info>,
     
-    #[account(mut, seeds = [b"new_user7".as_ref(), user.key().as_ref()], bump)]
+    #[account(mut, seeds = [b"new_user_account".as_ref(), user.key().as_ref()], bump)]
     pub user_account: Box<Account<'info, User>>,
    
 }
@@ -63,7 +63,7 @@ pub struct NewUser<'info> {
         init, 
         payer = user, 
         space = size_of::<User>(), 
-        seeds = [b"new_user7".as_ref(), user.key().as_ref()], 
+        seeds = [b"new_user_account".as_ref(), user.key().as_ref()], 
         bump
     )]
     pub user_account: Box<Account<'info, User>>,
