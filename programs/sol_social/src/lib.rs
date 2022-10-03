@@ -57,6 +57,7 @@ pub mod sol_social {
         let post: &mut Account<Post> = &mut ctx.accounts.post;
         let clock: Clock = Clock::get().unwrap();
         let author: &Signer = &ctx.accounts.author;
+        
 
         if content.chars().count() > 280 {
             msg!("content must by less the 280 characters!");
